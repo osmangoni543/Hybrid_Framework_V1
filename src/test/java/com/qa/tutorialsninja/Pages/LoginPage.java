@@ -43,4 +43,11 @@ public class LoginPage {
         String warningMessage = warningMessageInvalidLogin.getText();
         return warningMessage;
     }
+
+    public AccountPage navigateToAccountPage(String emailText, String passwordText){
+        emailAddressTextBox.sendKeys(emailText);
+        passwordTextBox.sendKeys(passwordText);
+        loginButton.click();
+        return new AccountPage(driver);
+    }
 }

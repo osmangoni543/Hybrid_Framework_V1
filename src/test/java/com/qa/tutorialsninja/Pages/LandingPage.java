@@ -39,16 +39,31 @@ public class LandingPage {
         return new LoginPage(driver);
     }
 
-    public void selectRegisterOption(){
+    public RegisterPage selectRegisterOption(){
+        MyAccountDropdown.click();
         registerOption.click();
+        return new RegisterPage(driver);
     }
 
     public void enterProductDetailsInSearchTextBoxField(String productText){
         searchTextBox.sendKeys(productText);
     }
 
-    public void clickOnSearchButton(){
+    public SearchPage clickOnSearchButton(){
         searchButton.click();
+        return new SearchPage(driver);
+    }
+
+    public LoginPage navigateToLoginPage(){
+        MyAccountDropdown.click();
+        loginOption.click();
+        return new LoginPage(driver);
+    }
+
+    public SearchPage navigateToSearchPage(String productText){
+        searchTextBox.sendKeys(productText);
+        searchButton.click();
+        return new SearchPage(driver);
     }
 
 }

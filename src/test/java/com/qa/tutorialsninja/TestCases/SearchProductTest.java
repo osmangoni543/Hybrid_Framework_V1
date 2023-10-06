@@ -3,7 +3,6 @@ package com.qa.tutorialsninja.TestCases;
 import com.qa.tutorialsninja.Pages.LandingPage;
 import com.qa.tutorialsninja.Pages.SearchPage;
 import com.qa.tutorialsninja.TestBase.TestBase;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -12,6 +11,8 @@ import org.testng.Assert;
 
 public class SearchProductTest extends TestBase {
     public WebDriver driver;
+    public LandingPage landingpage;
+    public SearchPage searchpage;
 
     public SearchProductTest() throws Exception{
         super();
@@ -24,32 +25,22 @@ public class SearchProductTest extends TestBase {
 
     @Test(priority=1)
     public void verifySearchWithValidProduct(){
-        LandingPage landingPage = new LandingPage(driver);
-        landingPage.enterProductDetailsInSearchTextBoxField(dataprop.getProperty("validProduct"));
-        //driver.findElement(By.name("search")).sendKeys(dataprop.getProperty("validProduct"));
-        landingPage.clickOnSearchButton();
-        //driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg")).click();
-        SearchPage searchpage = new SearchPage(driver);
+        landingpage = new LandingPage(driver);
+        searchpage = landingpage.navigateToSearchPage(dataprop.getProperty("validProduct"));
         Assert.assertTrue(searchpage.displayStatusOfValidProduct());
     }
 
     @Test(priority=2)
     public void verifySearchWithInvalidProduct(){
-        LandingPage landingPage = new LandingPage(driver);
-        landingPage.enterProductDetailsInSearchTextBoxField(dataprop.getProperty("invalidProduct"));
-        //driver.findElement(By.name("search")).sendKeys(dataprop.getProperty("invalidProduct"));
-        landingPage.clickOnSearchButton();
-        //driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg")).click();
-        SearchPage searchpage = new SearchPage(driver);
+        landingpage = new LandingPage(driver);
+        searchpage = landingpage.navigateToSearchPage(dataprop.getProperty("invalidProduct"));
         Assert.assertTrue(searchpage.displayNoProductAvailableText());
     }
 
     @Test(priority=3)
     public void verifySearchWithNoProduct(){
-        LandingPage landingPage = new LandingPage(driver);
-        landingPage.clickOnSearchButton();
-        //driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg")).click();
-        SearchPage searchpage = new SearchPage(driver);
+        landingpage = new LandingPage(driver);
+        searchpage = landingpage.clickOnSearchButton();
         Assert.assertTrue(searchpage.displayNoProductAvailableText());
     }
 
